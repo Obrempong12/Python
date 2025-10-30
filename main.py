@@ -49,6 +49,9 @@ def delete_last():
     text_result.delete(1.0, "end")
     text_result.insert(1.0, calculation)
 
+def reset_all():
+    clear_field()
+
 
 root = tk.Tk()
 root.geometry("300x275")
@@ -99,5 +102,6 @@ btn_decimal = tk.Button(root, text=".", command=lambda: add_to_calculation("."),
 btn_decimal.grid(row=7, column=1)
 btn_percent = tk.Button(root, text="%", command=lambda: add_to_calculation("/100"), width=5, font=("Arial", 14))
 btn_percent.grid(row=7, column=4)
-
+btn_reset = tk.Button(root, text="OBREMPONG", command=reset_all, width=11, font=("Comic Sans MS", 12, "bold"), fg="white", bg="#8A2BE2")
+btn_reset.grid(row=7, column=2, columnspan=2)
 root.mainloop()
