@@ -43,6 +43,13 @@ def handle_keypress(event):
         clear_field()
 
 
+def delete_last():
+    global calculation
+    calculation = calculation[:-1]
+    text_result.delete(1.0, "end")
+    text_result.insert(1.0, calculation)
+
+
 root = tk.Tk()
 root.geometry("300x275")
 root.bind("<Key>", handle_keypress)
@@ -82,8 +89,15 @@ btn_open = tk.Button(root, text="(", command=lambda: add_to_calculation("("), wi
 btn_open.grid(row=5, column=1)
 btn_close = tk.Button(root, text=")", command=lambda: add_to_calculation(")"), width=5, font=("Arial", 14))
 btn_close.grid(row=5, column=3)
-btn_clear = tk.Button(root, text="C", command=clear_field, width=11, font=("Arial", 14))
-btn_clear.grid(row=6, column=1, columnspan=2)
-btn_equals = tk.Button(root, text="=", command=evaluate_calculation, width=11, font=("Arial", 14))
-btn_equals.grid(row=6, column=3, columnspan=2)
+btn_clear = tk.Button(root, text="C", command=clear_field, width=5, font=("Arial", 14))
+btn_clear.grid(row=6, column=1)
+btn_delete = tk.Button(root, text="DEL", command=delete_last, width=11, font=("Arial", 14))
+btn_delete.grid(row=6, column=2, columnspan=2)
+btn_equals = tk.Button(root, text="=", command=evaluate_calculation, width=5, font=("Arial", 14))
+btn_equals.grid(row=6, column=4)
+btn_decimal = tk.Button(root, text=".", command=lambda: add_to_calculation("."), width=5, font=("Arial", 14))
+btn_decimal.grid(row=7, column=1)
+btn_percent = tk.Button(root, text="%", command=lambda: add_to_calculation("/100"), width=5, font=("Arial", 14))
+btn_percent.grid(row=7, column=4)
+
 root.mainloop()
