@@ -27,8 +27,25 @@ def clear_field():
     text_result.delete(1.0, "end")
 
 
+def handle_keypress(event):
+    key = event.char
+
+    if key.isdigit() or key in "+-*/()":
+        add_to_calculation(key)
+    elif event.keysym == "Return":
+        evaluate_calculation()
+    elif event.keysym == "BackSpace":
+        global calculation
+        calculation = calculation[:-1]
+        text_result.delete(1.0, "end")
+        text_result.insert(1.0, calculation)
+    elif event.keysym in ("Escape", "c", "C"):
+        clear_field()
+
+
 root = tk.Tk()
 root.geometry("300x275")
+root.bind("<Key>", handle_keypress)
 
 text_result = tk.Text(root, height=2, width=16, font=("Arial Narrow", 24))
 text_result.grid(columnspan=5)
