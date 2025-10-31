@@ -1,4 +1,5 @@
 import tkinter as tk
+import math
 
 calculation = ""
 
@@ -13,7 +14,7 @@ def add_to_calculation(symbol):
 def evaluate_calculation():
     global calculation
     try:
-        calculation = str(eval(calculation))
+        calculation = str(eval(calculation, {"__builtins__": None}, math.__dict__))
         text_result.delete(1.0, "end")
         text_result.insert(1.0, calculation)
     except:
