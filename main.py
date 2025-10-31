@@ -1,5 +1,6 @@
 import tkinter as tk
 import math
+is_radians = True
 
 calculation = ""
 
@@ -53,6 +54,23 @@ def delete_last():
 def reset_all():
     clear_field()
 
+def toggle_angle_mode():
+    global is_radians
+    is_radians = not is_radians
+    if is_radians:
+        btn_deg_rad.config(text="RAD")
+    else:
+        btn_deg_rad.config(text="DEG")
+
+def add_trig(func):
+    global calculation, is_radians
+    if is_radians:
+        calculation += func + "("
+    else:
+        calculation += f"{func}(radians("
+    text_result.delete(1.0, "end")
+    text_result.insert(1.0, calculation)
+
 
 root = tk.Tk()
 root.geometry("300x275")
@@ -105,12 +123,29 @@ btn_percent = tk.Button(root, text="%", command=lambda: add_to_calculation("/100
 btn_percent.grid(row=7, column=4)
 btn_reset = tk.Button(root, text="OBREMPONG", command=reset_all, width=11, font=("Comic Sans MS", 12, "bold"), fg="white", bg="#8A2BE2")
 btn_reset.grid(row=7, column=2, columnspan=2)
-btn_sin = tk.Button(root, text="sin", command=lambda: add_to_calculation("sin("), width=5, font=("Arial", 12))
+btn_sin = tk.Button(root, text="sin", command=lambda: add_trig("sin"), width=5, font=("Arial", 12))
 btn_sin.grid(row=8, column=1)
-btn_cos = tk.Button(root, text="cos", command=lambda: add_to_calculation("cos("), width=5, font=("Arial", 12))
+btn_cos = tk.Button(root, text="cos", command=lambda: add_trig("cos"), width=5, font=("Arial", 12))
 btn_cos.grid(row=8, column=2)
-btn_tan = tk.Button(root, text="tan", command=lambda: add_to_calculation("tan("), width=5, font=("Arial", 12))
+btn_tan = tk.Button(root, text="tan", command=lambda: add_trig("tan"), width=5, font=("Arial", 12))
 btn_tan.grid(row=8, column=3)
 btn_sqrt = tk.Button(root, text="√", command=lambda: add_to_calculation("sqrt("), width=5, font=("Arial", 12))
 btn_sqrt.grid(row=8, column=4)
+btn_log = tk.Button(root, text="log", command=lambda: add_to_calculation("log10("), width=5, font=("Arial", 12))
+btn_log.grid(row=9, column=1)
+btn_ln = tk.Button(root, text="ln", command=lambda: add_to_calculation("log("), width=5, font=("Arial", 12))
+btn_ln.grid(row=9, column=2)
+btn_exp = tk.Button(root, text="exp", command=lambda: add_to_calculation("exp("), width=5, font=("Arial", 12))
+btn_exp.grid(row=9, column=3)
+btn_square = tk.Button(root, text="x²", command=lambda: add_to_calculation("**2"), width=5, font=("Arial", 12))
+btn_square.grid(row=9, column=4)
+btn_power = tk.Button(root, text="xʸ", command=lambda: add_to_calculation("**"), width=5, font=("Arial", 12))
+btn_power.grid(row=10, column=1)
+btn_pi = tk.Button(root, text="π", command=lambda: add_to_calculation("pi"), width=5, font=("Arial", 12))
+btn_pi.grid(row=10, column=2)
+btn_fact = tk.Button(root, text="n!", command=lambda: add_to_calculation("factorial("), width=5, font=("Arial", 12))
+btn_fact.grid(row=10, column=3)
+btn_deg_rad = tk.Button(root, text="RAD", command=toggle_angle_mode, width=5, font=("Arial", 12))
+btn_deg_rad.grid(row=10, column=4)
+
 root.mainloop()
